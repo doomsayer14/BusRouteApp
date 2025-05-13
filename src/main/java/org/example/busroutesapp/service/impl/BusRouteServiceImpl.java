@@ -40,10 +40,10 @@ public class BusRouteServiceImpl implements BusRouteService {
     public void createRoute() throws IOException {
         BusRoute busRoute = new BusRoute();
 
-        System.out.println("Write a direction for the bus route:");
+        log.info("Write a direction for the bus route:");
         busRoute.setDirection(reader.readLine());
 
-        System.out.println("Write an amount of seats for the bus:");
+        log.info("Write an amount of seats for the bus:");
         int seatsAmount = Integer.parseInt(reader.readLine());
         if (seatsAmount <= 0) {
             throw new IllegalArgumentException("Seats amount must be greater than 0");
@@ -57,7 +57,7 @@ public class BusRouteServiceImpl implements BusRouteService {
 
         //case when we have not even an amount of seats
         if (seatsAmount % 2 != 0) {
-            System.out.println("Write seats number for service seats for the bus:");
+            log.info("Write seats number for service seats for the bus:");
             String inputServiceSeats = reader.readLine();
             String[] parts = inputServiceSeats.split(" ");
             for (String part : parts) {
@@ -69,7 +69,7 @@ public class BusRouteServiceImpl implements BusRouteService {
                             .build();
                     bus.getSeatList().set(serviceSeat.getSeatNumber() - 1, serviceSeat);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid number: " + part);
+                    log.error("Invalid number: {}", part);
                 }
             }
         }
@@ -145,7 +145,7 @@ public class BusRouteServiceImpl implements BusRouteService {
                     log.info("  ");
                 }
             } else {
-                log.info(seatList.get(i) + " ");
+                log.info("{} ", seatList.get(i));
             }
             if (seatList.get(i).getSeatNumber() % 2 == 0) {
                 log.info(" ");
